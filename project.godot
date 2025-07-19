@@ -1,0 +1,37 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="arenaPrueba"
+run/main_scene="res://Scenes/Map/arena.tscn"
+config/features=PackedStringArray("4.3", "Forward Plus")
+config/icon="res://icon.svg"
+
+[autoload]
+
+Data="*res://Scenes/Singletons/Data.gd"
+
+[display]
+
+window/size/viewport_width=720
+window/size/viewport_height=480
+window/size/window_width_override=960
+window/size/window_height_override=640
+window/stretch/mode="viewport"
+
+[layer_names]
+
+2d_physics/layer_1="World"
+2d_physics/layer_2="Player"
+2d_physics/layer_3="Enemy"
+2d_physics/layer_4="Projectile"
+2d_physics/layer_5="PlayerHurtbox"
+2d_physics/layer_6="EnemyHurtbox"

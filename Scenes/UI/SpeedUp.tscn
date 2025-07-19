@@ -1,0 +1,27 @@
+[gd_scene load_steps=2 format=3 uid="uid://b2fyiflb17kvi"]
+
+[ext_resource type="Texture2D" uid="uid://cpoylhub21l5j" path="res://Resources/Smoke_Bomb_icon.png" id="1_d8d42"]
+
+[node name="SpeedUp" type="Control"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 3
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -32.0
+offset_top = -32.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="TextureRect" type="TextureRect" parent="."]
+texture_filter = 1
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_d8d42")

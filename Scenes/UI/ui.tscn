@@ -1,0 +1,282 @@
+[gd_scene load_steps=15 format=3 uid="uid://c1wl2i6v61a3b"]
+
+[ext_resource type="Script" path="res://Scenes/UI/ui.gd" id="1_btw68"]
+[ext_resource type="Texture2D" uid="uid://dx7ehsb5qe8de" path="res://Resources/Fireball_icon.png" id="2_1c0qv"]
+[ext_resource type="Texture2D" uid="uid://csmqiacvgfg7v" path="res://Resources/Ice Spear_icon.png" id="3_s7g2h"]
+[ext_resource type="Texture2D" uid="uid://cpoylhub21l5j" path="res://Resources/Smoke_Bomb_icon.png" id="4_0nr01"]
+[ext_resource type="Texture2D" uid="uid://ddavq33hnql8p" path="res://Resources/Mana_Regen_icon.png" id="5_2x6em"]
+[ext_resource type="PackedScene" uid="uid://b2fyiflb17kvi" path="res://Scenes/UI/SpeedUp.tscn" id="6_8o8s3"]
+
+[sub_resource type="InputEventKey" id="InputEventKey_7dgeo"]
+keycode = 49
+
+[sub_resource type="Shortcut" id="Shortcut_k0kw8"]
+events = [SubResource("InputEventKey_7dgeo")]
+
+[sub_resource type="InputEventKey" id="InputEventKey_86nst"]
+device = -1
+keycode = 50
+unicode = 50
+
+[sub_resource type="Shortcut" id="Shortcut_5s5mn"]
+events = [SubResource("InputEventKey_86nst")]
+
+[sub_resource type="InputEventKey" id="InputEventKey_8bh8u"]
+device = -1
+keycode = 51
+unicode = 51
+
+[sub_resource type="Shortcut" id="Shortcut_xhfej"]
+events = [SubResource("InputEventKey_8bh8u")]
+
+[sub_resource type="InputEventKey" id="InputEventKey_ykee1"]
+device = -1
+keycode = 52
+unicode = 52
+
+[sub_resource type="Shortcut" id="Shortcut_detrf"]
+events = [SubResource("InputEventKey_ykee1")]
+
+[node name="UI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_btw68")
+
+[node name="Panel" type="Panel" parent="."]
+modulate = Color(1, 1, 1, 0.882353)
+custom_minimum_size = Vector2(158, 48)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -79.0
+offset_top = -48.0
+offset_right = 79.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -70.0
+offset_top = -16.0
+offset_right = 70.0
+offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Button1" type="Button" parent="Panel/HBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+shortcut = SubResource("Shortcut_k0kw8")
+
+[node name="Skill1Texture" type="TextureRect" parent="Panel/HBoxContainer/Button1"]
+unique_name_in_owner = true
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_1c0qv")
+
+[node name="Skill1Cooldown" type="TextureRect" parent="Panel/HBoxContainer/Button1"]
+unique_name_in_owner = true
+self_modulate = Color(0.154876, 0.154876, 0.154876, 1)
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_1c0qv")
+
+[node name="Skill1" type="Label" parent="Panel/HBoxContainer/Button1/Skill1Cooldown"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "23"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button2" type="Button" parent="Panel/HBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+shortcut = SubResource("Shortcut_5s5mn")
+
+[node name="Skill2Texture" type="TextureRect" parent="Panel/HBoxContainer/Button2"]
+unique_name_in_owner = true
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_s7g2h")
+
+[node name="Skill2Cooldown" type="TextureRect" parent="Panel/HBoxContainer/Button2"]
+unique_name_in_owner = true
+self_modulate = Color(0.0923971, 0.0923971, 0.0923971, 1)
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_s7g2h")
+
+[node name="Skill2" type="Label" parent="Panel/HBoxContainer/Button2/Skill2Cooldown"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "23"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button3" type="Button" parent="Panel/HBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+shortcut = SubResource("Shortcut_xhfej")
+
+[node name="Skill3Texture" type="TextureRect" parent="Panel/HBoxContainer/Button3"]
+unique_name_in_owner = true
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_0nr01")
+
+[node name="Skill3Cooldown" type="TextureRect" parent="Panel/HBoxContainer/Button3"]
+unique_name_in_owner = true
+self_modulate = Color(0.122252, 0.122252, 0.122252, 1)
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_0nr01")
+
+[node name="Skill3" type="Label" parent="Panel/HBoxContainer/Button3/Skill3Cooldown"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "23"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button4" type="Button" parent="Panel/HBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+shortcut = SubResource("Shortcut_detrf")
+
+[node name="Skill4Texture" type="TextureRect" parent="Panel/HBoxContainer/Button4"]
+unique_name_in_owner = true
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_2x6em")
+
+[node name="Skill4Cooldown" type="TextureRect" parent="Panel/HBoxContainer/Button4"]
+unique_name_in_owner = true
+self_modulate = Color(0.140447, 0.140447, 0.140447, 1)
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_2x6em")
+
+[node name="Skill4" type="Label" parent="Panel/HBoxContainer/Button4/Skill4Cooldown"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "23"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SpeedUp" parent="." instance=ExtResource("6_8o8s3")]
+visible = false
+layout_mode = 1
+offset_left = -64.0
+offset_top = -64.0
+
+[node name="Timer1" type="Timer" parent="."]
+unique_name_in_owner = true
+
+[node name="Timer2" type="Timer" parent="."]
+unique_name_in_owner = true
+
+[node name="Timer3" type="Timer" parent="."]
+unique_name_in_owner = true
+
+[node name="Timer4" type="Timer" parent="."]
+unique_name_in_owner = true
+
+[node name="Enemy" type="ProgressBar" parent="."]
+unique_name_in_owner = true
+modulate = Color(0, 0, 0, 1)
+self_modulate = Color(0, 0, 0, 1)
+layout_mode = 0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 184.0
+offset_bottom = 46.0
+value = 100.0
+
+[node name="Player" type="ProgressBar" parent="."]
+unique_name_in_owner = true
+modulate = Color(0, 0, 0, 1)
+self_modulate = Color(0, 0, 0, 1)
+layout_mode = 0
+offset_left = 16.0
+offset_top = 256.0
+offset_right = 184.0
+offset_bottom = 286.0
+value = 100.0
+
+[connection signal="pressed" from="Panel/HBoxContainer/Button1" to="." method="_on_button_1_pressed"]
+[connection signal="pressed" from="Panel/HBoxContainer/Button2" to="." method="_on_button_2_pressed"]
+[connection signal="pressed" from="Panel/HBoxContainer/Button3" to="." method="_on_button_3_pressed"]
+[connection signal="pressed" from="Panel/HBoxContainer/Button4" to="." method="_on_button_4_pressed"]

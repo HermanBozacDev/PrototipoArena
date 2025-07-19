@@ -1,0 +1,75 @@
+[gd_scene load_steps=10 format=3 uid="uid://cksolaqk127fy"]
+
+[ext_resource type="Script" path="res://Scenes/Skills/RangedSingleTargetSkill.gd" id="1_32as4"]
+[ext_resource type="Texture2D" uid="uid://3hj6crqkjhng" path="res://Resources/Fire_Ball.png" id="1_73q2d"]
+[ext_resource type="Texture2D" uid="uid://clkd2nscs8gnk" path="res://Resources/Ice Spear.png" id="2_r0k44"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_c8mt0"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a2gb4"]
+atlas = ExtResource("1_73q2d")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_odafp"]
+atlas = ExtResource("1_73q2d")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cvfrc"]
+atlas = ExtResource("2_r0k44")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xiyes"]
+atlas = ExtResource("2_r0k44")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_yivvh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a2gb4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_odafp")
+}],
+"loop": true,
+"name": &"Fireball",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cvfrc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xiyes")
+}],
+"loop": true,
+"name": &"Ice Spike",
+"speed": 5.0
+}]
+
+[node name="RangedSingleTargetSkill" type="RigidBody2D"]
+collision_layer = 0
+collision_mask = 0
+mass = 0.001
+gravity_scale = 0.0
+script = ExtResource("1_32as4")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 48
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_c8mt0")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_c8mt0")
+disabled = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_yivvh")
+animation = &"Ice Spike"
+frame_progress = 0.0486248
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
