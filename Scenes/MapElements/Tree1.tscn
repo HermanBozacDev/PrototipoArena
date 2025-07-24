@@ -1,0 +1,37 @@
+[gd_scene load_steps=3 format=3 uid="uid://dncnknpn4p3uv"]
+
+[ext_resource type="Script" path="res://Scenes/MapElements/Box1.gd" id="1_yi7sg"]
+[ext_resource type="Texture2D" uid="uid://dba60edohv4b4" path="res://Resources/tile1234.png" id="2_82ufg"]
+
+[node name="Tree1" type="StaticBody2D"]
+script = ExtResource("1_yi7sg")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+visible = false
+polygon = PackedVector2Array(24, 71, 14, 49, 18, 29, 49, 21, 49, -26, 23, -69, -10, -74, -44, -38, -51, -8, -50, 19, -14, 37, -11, 62, -25, 73, -4, 76, 3, 72, 14, 76, 19, 76, 16, 68)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("2_82ufg")
+region_enabled = true
+region_rect = Rect2(392, 8, 112, 168)
+
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 64
+collision_mask = 14
+
+[node name="CollisionShape2D2" type="CollisionPolygon2D" parent="Hurtbox"]
+polygon = PackedVector2Array(24, 71, 14, 49, 18, 29, 49, 21, 49, -26, 23, -69, -10, -74, -44, -38, -51, -8, -50, 19, -14, 37, -11, 62, -25, 73, -4, 76, 3, 72, 14, 76, 19, 76, 16, 68)
+
+[node name="LifeBar" type="ProgressBar" parent="."]
+unique_name_in_owner = true
+visible = false
+modulate = Color(0.137255, 1, 0, 1)
+offset_left = -11.0
+offset_top = 14.0
+offset_right = 12.0
+offset_bottom = 30.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 8
+
+[connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]

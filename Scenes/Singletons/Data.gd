@@ -3,9 +3,9 @@ extends Node
 # Diccionario con los poderes
 var powers := {
 	1: {"name": "Fireball", "cooldown": 3.0},
-	2: {"name": "Ice Spike", "cooldown": 5.0},
-	3: {"name": "Speed", "cooldown": 4.0},
-	4: {"name": "Heal", "cooldown": 6.0},
+	2: {"name": "Ice Spike", "cooldown": 2.0},
+	3: {"name": "Speed", "cooldown": 6.0},
+	4: {"name": "Heal", "cooldown": 12.0},
 }
 
 # Estado actual de cooldown
@@ -18,7 +18,7 @@ var cooldowns := {
 
 var skill_info := {
 	"Fireball": {"damage": 20},
-	"Ice Spike": {"damage": 15}
+	"Ice Spike": {"damage": 10}
 }
 
 
@@ -33,3 +33,8 @@ var enemy_data := {
 	"min_hp": 0,
 	"max_hp": 100,
 }
+
+
+
+var rounds_won = 0
+var in_battle = true

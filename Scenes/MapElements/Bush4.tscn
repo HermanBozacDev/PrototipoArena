@@ -1,0 +1,37 @@
+[gd_scene load_steps=3 format=3 uid="uid://vyjwjds4klvj"]
+
+[ext_resource type="Script" path="res://Scenes/MapElements/Box1.gd" id="1_gyw40"]
+[ext_resource type="Texture2D" uid="uid://dba60edohv4b4" path="res://Resources/tile1234.png" id="2_q5n8o"]
+
+[node name="Bush4" type="StaticBody2D"]
+script = ExtResource("1_gyw40")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-12, 23, 13, 23, 9, 17, 9, -22, 1, -26, -7, -21, -6, 18)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("2_q5n8o")
+region_enabled = true
+region_rect = Rect2(8, 264, 48, 56)
+
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 64
+collision_mask = 14
+
+[node name="CollisionShape2D2" type="CollisionPolygon2D" parent="Hurtbox"]
+visible = false
+polygon = PackedVector2Array(-12, 23, 13, 23, 9, 17, 9, -22, 1, -26, -7, -21, -6, 18)
+
+[node name="LifeBar" type="ProgressBar" parent="."]
+unique_name_in_owner = true
+visible = false
+modulate = Color(0.137255, 1, 0, 1)
+offset_left = -11.0
+offset_top = 14.0
+offset_right = 12.0
+offset_bottom = 30.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 8
+
+[connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]

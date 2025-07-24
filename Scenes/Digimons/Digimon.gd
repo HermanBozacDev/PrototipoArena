@@ -3,7 +3,8 @@ extends CharacterBody2D
 # Estados
 enum {
 	MOVE,
-	IDLE
+	IDLE,
+	ATTACK
 }
 
 # Variables exportadas
@@ -19,7 +20,7 @@ var state := IDLE
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
-func _ready():
+func _ready(): 
 	destination = global_position
 
 func _input(event):
@@ -27,7 +28,11 @@ func _input(event):
 		destination = get_global_mouse_position()
 		moving = true
 		state = MOVE
-
+	if event is InputEventKey and event.pressed and event.keycode == KEY_SPACE:
+		#  Detener movimiento cuando se presiona SPACE
+		destination = global_position
+		moving = false
+		state = IDLE
 func _physics_process(delta):
 	match state:
 		MOVE:
@@ -38,6 +43,12 @@ func _physics_process(delta):
 			anim_mode = "Idle"
 			play_animation()
 			velocity = Vector2.ZERO
+		ATTACK:
+			anim_mode = "Attack"
+			play_animation()
+			velocity = Vector2.ZERO
+			if not animation_player.is_playing():
+				state = IDLE
 
 func move_towards_destination():
 	var distance = global_position.distance_to(destination)
@@ -77,7 +88,32 @@ func _on_hurtbox_area_entered(area: Area2D) -> void:
 	var skill_node = area.get_parent()
 	if skill_node.caster != "enemy":
 		return
+	skill_node._hit_fx()
 	var damage = Data.skill_info.get(skill_node.name_skill, {}).get("damage", 0)
 	#print(" Player hit by", skill_node.name_skill, "for", damage, "damage")
 
 	apply_damage(damage)
+
+func start_attack(mouse_position: Vector2):
+	destination = global_position
+	moving = false
+
+	var direction = (mouse_position - global_position).normalized()
+	move_direction = rad_to_deg(direction.angle())
+
+	# Update facing direction just for the attack
+	if move_direction <= 45 and move_direction >= -45:
+		anim_direction = "E"
+	elif move_direction <= 135 and move_direction > 45:
+		anim_direction = "S"
+	elif move_direction >= -135 and move_direction < -45:
+		anim_direction = "N"
+	else:
+		anim_direction = "W"
+
+	state = ATTACK
+
+
+func _on_animation_player_animation_finished(anim_name: StringName) -> void:
+	if state == ATTACK and anim_name.begins_with("Attack"):
+		state = IDLE

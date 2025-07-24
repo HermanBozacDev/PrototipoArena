@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="arenaPrueba"
-run/main_scene="res://Scenes/Map/arena.tscn"
+run/main_scene="res://Scenes/Main/SceneHandler.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -21,8 +21,8 @@ Data="*res://Scenes/Singletons/Data.gd"
 
 [display]
 
-window/size/viewport_width=720
-window/size/viewport_height=480
+window/size/viewport_width=540
+window/size/viewport_height=360
 window/size/window_width_override=960
 window/size/window_height_override=640
 window/stretch/mode="viewport"
@@ -35,3 +35,4 @@ window/stretch/mode="viewport"
 2d_physics/layer_4="Projectile"
 2d_physics/layer_5="PlayerHurtbox"
 2d_physics/layer_6="EnemyHurtbox"
+2d_physics/layer_7="PlayerDetectionZone"

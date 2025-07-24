@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://b2fyiflb17kvi"]
 
-[ext_resource type="Texture2D" uid="uid://cpoylhub21l5j" path="res://Resources/Smoke_Bomb_icon.png" id="1_d8d42"]
+[ext_resource type="Texture2D" uid="uid://ddavq33hnql8p" path="res://Resources/Mana_Regen_icon.png" id="1_0ewp8"]
 
 [node name="SpeedUp" type="Control"]
 custom_minimum_size = Vector2(64, 64)
@@ -24,4 +24,4 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("1_d8d42")
+texture = ExtResource("1_0ewp8")

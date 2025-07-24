@@ -1,0 +1,37 @@
+[gd_scene load_steps=3 format=3 uid="uid://buoqqo6xd4erf"]
+
+[ext_resource type="Script" path="res://Scenes/MapElements/Box1.gd" id="1_gumgf"]
+[ext_resource type="Texture2D" uid="uid://dba60edohv4b4" path="res://Resources/tile1234.png" id="2_vql8q"]
+
+[node name="Tree3" type="StaticBody2D"]
+script = ExtResource("1_gumgf")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+visible = false
+polygon = PackedVector2Array(-33, 70, 3, 75, 40, 70, 24, 64, 1, 21, 23, 5, 31, 7, 27, -2, 44, -10, 35, -18, 44, -31, 45, -43, 31, -18, 26, -25, 23, -6, 9, 1, 16, -23, 9, -18, 19, -37, 27, -39, 36, -60, -10, -80, -32, -54, -26, -41, -12, -38, -2, -10, -7, -3, -26, -13, -37, -26, -36, -51, -42, -34, -52, -45, -48, -28, -34, -11, -43, -3, -18, 5, -16, 35, -11, 52)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("2_vql8q")
+region_enabled = true
+region_rect = Rect2(280, 160, 112, 160)
+
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 64
+collision_mask = 14
+
+[node name="CollisionShape2D2" type="CollisionPolygon2D" parent="Hurtbox"]
+polygon = PackedVector2Array(-33, 70, 3, 75, 40, 70, 24, 64, 1, 21, 23, 5, 31, 7, 27, -2, 44, -10, 35, -18, 44, -31, 45, -43, 31, -18, 26, -25, 23, -6, 9, 1, 16, -23, 9, -18, 19, -37, 27, -39, 36, -60, -10, -80, -32, -54, -26, -41, -12, -38, -2, -10, -7, -3, -26, -13, -37, -26, -36, -51, -42, -34, -52, -45, -48, -28, -34, -11, -43, -3, -18, 5, -16, 35, -11, 52)
+
+[node name="LifeBar" type="ProgressBar" parent="."]
+unique_name_in_owner = true
+visible = false
+modulate = Color(0.137255, 1, 0, 1)
+offset_left = -11.0
+offset_top = 14.0
+offset_right = 12.0
+offset_bottom = 30.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 8
+
+[connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]

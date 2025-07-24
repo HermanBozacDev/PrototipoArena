@@ -1,0 +1,37 @@
+[gd_scene load_steps=3 format=3 uid="uid://dt33ofaan17u0"]
+
+[ext_resource type="Script" path="res://Scenes/MapElements/Box1.gd" id="1_318ys"]
+[ext_resource type="Texture2D" uid="uid://dba60edohv4b4" path="res://Resources/tile1234.png" id="2_eeca7"]
+
+[node name="Tree5" type="StaticBody2D"]
+script = ExtResource("1_318ys")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-21, 78, -9, 87, 1, 83, 11, 87, 20, 80, 7, 71, 8, 32, 16, 26, 34, 34, 20, 21, 33, 9, 49, 19, 35, 4, 57, -16, 45, -13, 48, -28, 40, -6, 34, -7, 39, -23, 29, 4, 23, 7, 22, -4, 4, 25, 16, -15, 40, -55, 15, -25, 29, -68, 16, -59, 13, -81, 11, -21, 4, -49, 4, -7, -1, 6, -9, -26, 5, -78, -9, -53, -8, -88, -14, -73, -21, -76, -13, -22, -22, -30, -23, -59, -35, -72, -40, -71, -30, -48, -29, -32, -47, -54, -43, -44, -52, -43, -33, -26, -36, -21, -10, -7, -5, 28, -20, 6, -29, -14, -50, -24, -41, -7, -56, -6, -36, 9, -52, 19, -45, 26, -35, 14, -18, 16, -6, 43, -11, 73)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("2_eeca7")
+region_enabled = true
+region_rect = Rect2(272, 328, 128, 184)
+
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 64
+collision_mask = 14
+
+[node name="CollisionShape2D2" type="CollisionPolygon2D" parent="Hurtbox"]
+visible = false
+polygon = PackedVector2Array(-21, 78, -9, 87, 1, 83, 11, 87, 20, 80, 7, 71, 8, 32, 16, 26, 34, 34, 20, 21, 33, 9, 49, 19, 35, 4, 57, -16, 45, -13, 48, -28, 40, -6, 34, -7, 39, -23, 29, 4, 23, 7, 22, -4, 4, 25, 16, -15, 40, -55, 15, -25, 29, -68, 16, -59, 13, -81, 11, -21, 4, -49, 4, -7, -1, 6, -9, -26, 5, -78, -9, -53, -8, -88, -14, -73, -21, -76, -13, -22, -22, -30, -23, -59, -35, -72, -40, -71, -30, -48, -29, -32, -47, -54, -43, -44, -52, -43, -33, -26, -36, -21, -10, -7, -5, 28, -20, 6, -29, -14, -50, -24, -41, -7, -56, -6, -36, 9, -52, 19, -45, 26, -35, 14, -18, 16, -6, 43, -11, 73)
+
+[node name="LifeBar" type="ProgressBar" parent="."]
+unique_name_in_owner = true
+visible = false
+modulate = Color(0.137255, 1, 0, 1)
+offset_left = -11.0
+offset_top = 14.0
+offset_right = 12.0
+offset_bottom = 30.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 8
+
+[connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]

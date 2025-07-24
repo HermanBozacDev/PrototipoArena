@@ -1,7 +1,9 @@
 extends Control
 
-@onready var player = get_node("/root/Arena/Digimons/Digimon")
+@onready var player = get_node("/root/SceneHandler/Arena/Digimons/Digimon")
 var skill_scene = preload("res://Scenes/Skills/RangeSingleTargetskill.tscn")
+var cast_fx = preload("res://Scenes/UI/CastFx.tscn")
+
 
 func _ready():
 	%Timer1.timeout.connect(_on_timer1_timeout)
@@ -13,7 +15,8 @@ func _ready():
 	%Skill2Cooldown.hide()
 	%Skill3Cooldown.hide()
 	%Skill4Cooldown.hide()
-
+	
+	%RoundsLabel.text = str(Data.rounds_won)
 
 
 func _process(delta):
@@ -26,21 +29,68 @@ func _process(delta):
 	if Data.cooldowns[4]:
 		%Skill4.text = str(round(%Timer4.time_left))
 
-	# Actualizar barra de vida del jugador
-	var current_hp = Data.player_data["current_hp"]
-	var max_hp = Data.player_data["max_hp"]
-	%Player.max_value = max_hp
-	%Player.value = current_hp
+	update_health_bar(%PlayerBar, Data.player_data["current_hp"], Data.player_data["max_hp"])
+	update_health_bar(%EnemyBar, Data.enemy_data["current_hp"], Data.enemy_data["max_hp"])
+
+	if Data.in_battle:
+		if Data.enemy_data["current_hp"] <= 0:
+			on_enemy_defeated()
+		elif Data.player_data["current_hp"] <= 0:
+			on_player_defeated()
+
+func on_enemy_defeated():
+	print(" Ganaste la ronda!")
+	Data.rounds_won += 1
+	Data.in_battle = false
+	await get_tree().create_timer(1.0).timeout
+	restart_game()
+
+func on_player_defeated():
+	print(" Perdiste. Reiniciando progresión.")
+	Data.rounds_won = 0
+	Data.in_battle = false
+	await get_tree().create_timer(1.0).timeout
+	restart_game()
+
+
+
+
+func restart_game():
+	reset_combat_stats()
+	get_node("/root/SceneHandler").ReloadMap()
+
 	
+func reset_combat_stats():
+	Data.cooldowns = {
+		1: false,
+		2: false,
+		3: false,
+		4: false
+	}
+	Data.player_data["current_hp"] = Data.player_data["max_hp"]
+	Data.enemy_data["current_hp"] = Data.enemy_data["max_hp"]
 
-	# Actualizar barra de vida del enemigo
-	var enemy_hp = Data.enemy_data["current_hp"]
-	var enemy_max_hp = Data.enemy_data["max_hp"]
-	%Enemy.max_value = enemy_max_hp
-	%Enemy.value = enemy_hp
 
 
 
+	Data.in_battle = true
+
+
+func update_health_bar(bar: TextureProgressBar, current_hp: int, max_hp: int) -> void:
+	bar.max_value = max_hp
+
+	# Crear un Tween temporal para interpolar el valor
+	var tween := create_tween()
+	tween.tween_property(bar, "value", current_hp, 0.2).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN_OUT)
+
+	# Cambiar color del progreso según porcentaje
+	var percent := int((float(current_hp) / max_hp) * 100)
+	if percent >= 60:
+		bar.tint_progress = Color("14e114")  # verde
+	elif percent >= 25:
+		bar.tint_progress = Color("e1be32")  # amarillo
+	else:
+		bar.tint_progress = Color("e11e1e")  # rojo
 
 
 func _on_button_1_pressed() -> void:
@@ -107,6 +157,10 @@ func _on_timer4_timeout():
 
 
 func launch_heal():
+	var mouse_position = get_viewport().get_camera_2d().get_global_mouse_position()
+	player.start_attack(mouse_position)
+	castFx()
+	await get_tree().create_timer(0.4).timeout
 	var heal_amount = 30
 	Data.player_data["current_hp"] += heal_amount
 	if Data.player_data["current_hp"] > Data.player_data["max_hp"]:
@@ -115,16 +169,25 @@ func launch_heal():
 
 
 func launch_speed_up():
-	player.max_speed = 200
+	var mouse_position = get_viewport().get_camera_2d().get_global_mouse_position()
+	player.start_attack(mouse_position)
+	castFx()
+	await get_tree().create_timer(0.4).timeout
+	player.max_speed = 125
 	$SpeedUp.show()
 	await get_tree().create_timer(3).timeout
 	player.max_speed = 100
 	$SpeedUp.hide()
 
 func launch_ranged_skill(skill_name):
+	var mouse_position = get_viewport().get_camera_2d().get_global_mouse_position()
+	player.start_attack(mouse_position)
+	castFx()
+	await get_tree().create_timer(0.4).timeout
 	var skill_instance = skill_scene.instantiate()
 	var start_position = player.global_position
-	var mouse_position = get_global_mouse_position()
+	
+
 	var direction = (mouse_position - start_position).normalized()
 	
 	skill_instance.global_position = start_position
@@ -132,3 +195,9 @@ func launch_ranged_skill(skill_name):
 	skill_instance.rotation = direction.angle() 
 	skill_instance.name_skill = skill_name
 	get_tree().current_scene.add_child(skill_instance)
+
+
+
+func castFx():
+	var cast_fx_instance = cast_fx.instantiate()
+	add_child(cast_fx_instance)

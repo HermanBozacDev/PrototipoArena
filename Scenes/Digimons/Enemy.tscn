@@ -1,7 +1,8 @@
-[gd_scene load_steps=15 format=3 uid="uid://d1px05t8cn4ac"]
+[gd_scene load_steps=30 format=3 uid="uid://d1px05t8cn4ac"]
 
 [ext_resource type="Script" path="res://Scenes/Digimons/Enemy.gd" id="1_1e2sy"]
 [ext_resource type="Texture2D" uid="uid://b7ujvf4luxwmg" path="res://Resources/Skeleton.png" id="2_me1xm"]
+[ext_resource type="Script" path="res://Scenes/Digimons/player_detection_zone.gd" id="3_lmre5"]
 
 [sub_resource type="Animation" id="Animation_ii2g7"]
 resource_name = "Idle_E"
@@ -15,7 +16,7 @@ tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
+"update": 0,
 "values": [17]
 }
 
@@ -30,7 +31,7 @@ tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
+"update": 0,
 "values": [49]
 }
 
@@ -45,7 +46,7 @@ tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
+"update": 0,
 "values": [33]
 }
 
@@ -60,7 +61,7 @@ tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
+"update": 0,
 "values": [1]
 }
 
@@ -93,7 +94,7 @@ tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
+"update": 0,
 "values": [16, 17, 18, 19]
 }
 
@@ -111,7 +112,7 @@ tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
+"update": 0,
 "values": [48, 49, 50, 51]
 }
 
@@ -129,7 +130,7 @@ tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
+"update": 0,
 "values": [32, 33, 34, 35]
 }
 
@@ -147,7 +148,7 @@ tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
+"update": 0,
 "values": [0, 1, 2, 3]
 }
 
@@ -168,6 +169,75 @@ _data = {
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_aoc6t"]
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_s6s3d"]
+animation = &"Idle_S"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_d8x2n"]
+animation = &"Idle_N"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_itw5t"]
+animation = &"Idle_E"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_75m7o"]
+animation = &"Idle_W"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_auypd"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_s6s3d")
+blend_point_0/pos = Vector2(0, 1.1)
+blend_point_1/node = SubResource("AnimationNodeAnimation_d8x2n")
+blend_point_1/pos = Vector2(0, -1.1)
+blend_point_2/node = SubResource("AnimationNodeAnimation_itw5t")
+blend_point_2/pos = Vector2(1.1, 0)
+blend_point_3/node = SubResource("AnimationNodeAnimation_75m7o")
+blend_point_3/pos = Vector2(-1.1, 0)
+min_space = Vector2(-1.1, -1.1)
+max_space = Vector2(1.1, 1.1)
+blend_mode = 1
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_lvmwh"]
+animation = &"Walk_S"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_dxftg"]
+animation = &"Walk_N"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_byyf5"]
+animation = &"Walk_E"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_b0ffj"]
+animation = &"Walk_W"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_x648v"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_lvmwh")
+blend_point_0/pos = Vector2(0, 1.1)
+blend_point_1/node = SubResource("AnimationNodeAnimation_dxftg")
+blend_point_1/pos = Vector2(0, -1.1)
+blend_point_2/node = SubResource("AnimationNodeAnimation_byyf5")
+blend_point_2/pos = Vector2(1.1, 0)
+blend_point_3/node = SubResource("AnimationNodeAnimation_b0ffj")
+blend_point_3/pos = Vector2(-1.1, 0)
+min_space = Vector2(-1.1, -1.1)
+max_space = Vector2(1.1, 1.1)
+blend_mode = 1
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ncbv7"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_7mc6l"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_mgdvb"]
+states/Idle/node = SubResource("AnimationNodeBlendSpace2D_auypd")
+states/Idle/position = Vector2(486, 110)
+states/Walk/node = SubResource("AnimationNodeBlendSpace2D_x648v")
+states/Walk/position = Vector2(710, 110)
+transitions = ["Idle", "Walk", SubResource("AnimationNodeStateMachineTransition_ncbv7"), "Walk", "Idle", SubResource("AnimationNodeStateMachineTransition_7mc6l")]
+graph_offset = Vector2(87, 39)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_678qe"]
+radius = 192.0
+
 [node name="Enemy" type="CharacterBody2D"]
 collision_layer = 4
 collision_mask = 11
@@ -175,7 +245,6 @@ script = ExtResource("1_1e2sy")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
-scale = Vector2(2, 2)
 texture = ExtResource("2_me1xm")
 hframes = 16
 vframes = 4
@@ -196,4 +265,21 @@ collision_mask = 8
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 shape = SubResource("CircleShape2D_aoc6t")
 
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeStateMachine_mgdvb")
+anim_player = NodePath("../AnimationPlayer")
+parameters/Idle/blend_position = Vector2(-0.01741, 0.360177)
+parameters/Walk/blend_position = Vector2(-0.00474823, 0.019469)
+
+[node name="PlayerDetectionZone" type="Area2D" parent="."]
+collision_layer = 64
+collision_mask = 2
+script = ExtResource("3_lmre5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetectionZone"]
+position = Vector2(0, -8)
+shape = SubResource("CircleShape2D_678qe")
+
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]
+[connection signal="body_entered" from="PlayerDetectionZone" to="PlayerDetectionZone" method="_on_body_entered"]
+[connection signal="body_exited" from="PlayerDetectionZone" to="PlayerDetectionZone" method="_on_body_exited"]

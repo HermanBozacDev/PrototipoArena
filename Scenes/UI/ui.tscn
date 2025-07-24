@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://c1wl2i6v61a3b"]
+[gd_scene load_steps=16 format=3 uid="uid://c1wl2i6v61a3b"]
 
 [ext_resource type="Script" path="res://Scenes/UI/ui.gd" id="1_btw68"]
 [ext_resource type="Texture2D" uid="uid://dx7ehsb5qe8de" path="res://Resources/Fireball_icon.png" id="2_1c0qv"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://cpoylhub21l5j" path="res://Resources/Smoke_Bomb_icon.png" id="4_0nr01"]
 [ext_resource type="Texture2D" uid="uid://ddavq33hnql8p" path="res://Resources/Mana_Regen_icon.png" id="5_2x6em"]
 [ext_resource type="PackedScene" uid="uid://b2fyiflb17kvi" path="res://Scenes/UI/SpeedUp.tscn" id="6_8o8s3"]
+[ext_resource type="Texture2D" uid="uid://x008201u6rne" path="res://Resources/BASEHPBar.png" id="7_hep6f"]
 
 [sub_resource type="InputEventKey" id="InputEventKey_7dgeo"]
 keycode = 49
@@ -254,27 +255,50 @@ unique_name_in_owner = true
 [node name="Timer4" type="Timer" parent="."]
 unique_name_in_owner = true
 
-[node name="Enemy" type="ProgressBar" parent="."]
+[node name="EnemyBar" type="TextureProgressBar" parent="."]
 unique_name_in_owner = true
-modulate = Color(0, 0, 0, 1)
-self_modulate = Color(0, 0, 0, 1)
-layout_mode = 0
-offset_left = 16.0
-offset_top = 16.0
-offset_right = 184.0
-offset_bottom = 46.0
+texture_filter = 1
+offset_right = 128.0
+offset_bottom = 16.0
 value = 100.0
+nine_patch_stretch = true
+texture_under = ExtResource("7_hep6f")
+texture_progress = ExtResource("7_hep6f")
+tint_under = Color(0, 0, 0, 1)
+tint_progress = Color(2.40654e-07, 0.426237, 0.0447348, 1)
 
-[node name="Player" type="ProgressBar" parent="."]
+[node name="PlayerBar" type="TextureProgressBar" parent="."]
 unique_name_in_owner = true
-modulate = Color(0, 0, 0, 1)
-self_modulate = Color(0, 0, 0, 1)
+texture_filter = 1
+offset_top = 344.0
+offset_right = 128.0
+offset_bottom = 360.0
+value = 50.0
+nine_patch_stretch = true
+texture_under = ExtResource("7_hep6f")
+texture_progress = ExtResource("7_hep6f")
+tint_under = Color(0, 0, 0, 1)
+tint_progress = Color(2.40654e-07, 0.426237, 0.0447348, 1)
+
+[node name="RoundsLabel" type="Label" parent="."]
+unique_name_in_owner = true
 layout_mode = 0
-offset_left = 16.0
-offset_top = 256.0
-offset_right = 184.0
-offset_bottom = 286.0
-value = 100.0
+offset_left = 488.0
+offset_top = 8.0
+offset_right = 528.0
+offset_bottom = 48.0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="."]
+layout_mode = 0
+offset_left = 376.0
+offset_top = 8.0
+offset_right = 488.0
+offset_bottom = 48.0
+text = "Rondas: "
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="pressed" from="Panel/HBoxContainer/Button1" to="." method="_on_button_1_pressed"]
 [connection signal="pressed" from="Panel/HBoxContainer/Button2" to="." method="_on_button_2_pressed"]
